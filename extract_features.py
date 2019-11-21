@@ -21,7 +21,7 @@ count = 0
 for genre in genre_list:
     directory = "C:/Users/Katon/Documents/finalproject/audio_files/" + genre + "/"
     for name in os.listdir(directory):
-        filename = directory+name    # filename is the .csv file of the spectrogram for each song
+        filename = directory+name    # filename is the .wav file of the spectrogram for each song
         y, sr = sf.read(filename, dtype='float32')
         y=y.T
         y = librosa.resample(y, sr, 22050)
@@ -42,16 +42,16 @@ for genre in genre_list:
         total_spects[0][count] = tempo[0]
         total_spects[1][count] = np.mean(zcr)
         total_spects[2][count] = np.mean(sce)
-        total_spects[3][count] = np.mean(zcr)
-        total_spects[4][count] = np.mean(spec_flat)
-        total_spects[5][count] = np.mean(chroma_freq)
+        total_spects[3][count] = np.mean(spec_flat)
+        total_spects[4][count] = np.mean(chroma_freq)
+        total_spects[5][count] = np.mean(spec_contrast)
         
         x = 0
         for i in mfcc:
             total_spects[6 + x][count] = np.mean(mfcc[x])
             x += 1
         
-        # add genre tag to index 27
+        # add genre tag to index 26
         if genre == "blues":
             total_spects[26][count] = 0
         elif genre == "classical":
@@ -80,7 +80,7 @@ for genre in genre_list:
 
 
 
-#np.savetxt("C:/Users/Katon/Documents/finalproject/total_features.csv", total_spects, delimiter=",")   
+np.savetxt("C:/Users/Katon/Documents/finalproject/total_features.csv", total_spects, delimiter=",")   
 
         
         
