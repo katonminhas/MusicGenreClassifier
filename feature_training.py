@@ -30,7 +30,7 @@ model = models.Sequential()
 model.add(layers.Dense(256, activation = 'relu', input_shape = (X_train.shape[1],)))
 
 
-#model.add(layers.Dense(128, activation='relu'))
+model.add(layers.Dense(128, activation='relu'))
 #
 #model.add(layers.Dense(64, activation='relu'))
 #
@@ -39,7 +39,7 @@ model.add(layers.Dense(64, activation='softmax'))
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 
-history = model.fit(X_train, y_train, epochs=10, batch_size=128)
+history = model.fit(X_train, y_train, epochs=5, batch_size=128)
 
 test_loss, test_acc = model.evaluate(X_test,y_test)
 
