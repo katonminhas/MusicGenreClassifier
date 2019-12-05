@@ -37,7 +37,7 @@ model.compile(optimizer='rmsprop',
 
 
 # Train the model, iterating on the data in batches of 32 samples
-model.fit(X_train, y_train, epochs=50, batch_size=128)
+model.fit(X_train, y_train, epochs=10, batch_size=128)
 
 
 test_loss, test_acc = model.evaluate(X_test,y_test)
