@@ -13,16 +13,12 @@ from keras import models
 from keras import layers
 
 
-train_data = pd.read_csv('C:/Users/Katon/Documents/finalproject/spectrograms/all_spects.csv')
-test_data = pd.read_csv('C:/Users/Katon/Documents/finalproject/spectrograms/noisy_specs.csv')
+train_data = pd.read_csv('C:/Users/Katon/Documents/finalproject/spectrograms/all_spects.csv', header=None)
+test_data = pd.read_csv('C:/Users/Katon/Documents/finalproject/spectrograms/noisy_specs.csv', header=None)
 
 X = train_data.iloc[:-1,:]
 X = np.transpose(X)
 
-genre = train_data.iloc[-1:,]
-encoder = OneHotEncoder(categories = 'auto')
-y = encoder.fit_transform(genre).toarray()
-y = np.transpose(y)
 
 # print(np.shape(X))
 # print(np.shape(y))
@@ -50,6 +46,42 @@ history = model.fit(X_train, y_train, epochs=20, batch_size=128)
 test_loss, test_acc = model.evaluate(X_test,y_test)
 
 print('test_acc: ',test_acc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,7 +20,7 @@ for i=1:10
         spec = table2array(spec);
         
         % Take out half of the spectrogram at random
-        for k=1:6912
+        for k=1:3000
             row_index = randi([1 128],1);
             col_index = randi([1 216],1);
             spec(row_index, col_index) = 0;
@@ -35,4 +35,4 @@ for i=1:10
     end    
 end
 
-%writematrix(spec_vecs, 'C:/Users/Katon/Documents/finalproject/spectrograms/noisy_specs.csv');
+writematrix(spec_vecs, 'C:/Users/Katon/Documents/finalproject/spectrograms/noisy_specs.csv');

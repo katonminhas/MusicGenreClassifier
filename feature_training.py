@@ -1,9 +1,7 @@
-# import librosa
 import pandas as pd
 import numpy as np
+import keras
 
-import os
-import csv
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
@@ -11,39 +9,39 @@ from sklearn.preprocessing import OneHotEncoder
 # import keras
 from keras import models
 from keras import layers
+from keras.layers import Dense, Flatten
 
 
-data = pd.read_csv('C:/Users/Katon/Documents/finalproject/feature_files/norm_total_features.csv')
-X = data.iloc[:-1,:]
+data = pd.read_csv('C:/Users/Katon/Documents/finalproject/feature_files/norm_total_features.csv', header=None)
+X = data.iloc[:-1,]
 X = np.transpose(X)
 
-genre = data.iloc[-1:,]
-encoder = OneHotEncoder(categories = 'auto')
-y = encoder.fit_transform(genre).toarray()
-y = np.transpose(y)
-
-# print(np.shape(X))
-# print(np.shape(y))
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
-
-model = models.Sequential()
-model.add(layers.Dense(256, activation = 'relu', input_shape = (X_train.shape[1],)))
+labels = data.iloc[-1,:]
+labels = np.transpose(labels)
 
 
-model.add(layers.Dense(128, activation='relu'))
-#
-#model.add(layers.Dense(64, activation='relu'))
-#
-model.add(layers.Dense(64, activation='softmax'))
+# Convert labels to categorical one-hot encoding
+one_hot_labels = keras.utils.to_categorical(labels, num_classes=10)
 
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+X_train, X_test, y_train, y_test = train_test_split(X, one_hot_labels, test_size = 0.2)
 
 
-history = model.fit(X_train, y_train, epochs=5, batch_size=128)
+model =  models.Sequential()
+model.add(Dense(64, activation='relu', input_dim=26))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(10, activation='softmax'))
+model.compile(optimizer='rmsprop',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+
+
+# Train the model, iterating on the data in batches of 32 samples
+model.fit(X_train, y_train, epochs=50, batch_size=128)
+
 
 test_loss, test_acc = model.evaluate(X_test,y_test)
 
+
 print('test_acc: ',test_acc)
-
-
 
