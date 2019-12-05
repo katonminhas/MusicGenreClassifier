@@ -19,8 +19,8 @@ for i=1:10
         spec = readtable(filename);
         spec = table2array(spec);
         
-        % Take out half of the spectrogram at random
-        for k=1:3000
+        % Take out a % of the spectrogram at random
+        for k=1:6912
             row_index = randi([1 128],1);
             col_index = randi([1 216],1);
             spec(row_index, col_index) = 0;
