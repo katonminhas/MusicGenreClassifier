@@ -19,20 +19,15 @@ for i=1:10
         spec = readtable(filename);
         spec = table2array(spec);
         
-        % Take out a % of the spectrogram at random
-        for k=1:6912
+        % Take out 25% of the spectrogram at random
+        for k=1:13824
             row_index = randi([1 128],1);
             col_index = randi([1 216],1);
             spec(row_index, col_index) = 0;
         end
        
-        spec_vec = zeros(129,1);
-        spec_vec(1:128,1) = mean(spec,2);
-        spec_vec(129,1) = i;
-        
-        spec_vecs(:,index) = spec_vec;
-        index = index + 1;
+        writematrix(spec, filename);
     end    
 end
 
-writematrix(spec_vecs, 'C:/Users/Katon/Documents/finalproject/spectrograms/noisy_specs.csv');
+

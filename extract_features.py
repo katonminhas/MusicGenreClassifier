@@ -86,21 +86,21 @@ for genre in genre_list:
         y=y.T
         y = librosa.resample(y, sr, 22050)        
 
-        y_harmonic = librosa.effects.harmonic(y=y)
-        y_percussive = librosa.effects.percussive(y=y)
+        #y_harmonic = librosa.effects.harmonic(y=y)
+        #y_percussive = librosa.effects.percussive(y=y)
 
 
         # Get the song features
         song_features = get_features(y, sr, genre)
-        harmonic_features = get_features(y_harmonic, sr, genre)
-        percussive_features = get_features(y_percussive, sr, genre)
+        #harmonic_features = get_features(y_harmonic, sr, genre)
+        #percussive_features = get_features(y_percussive, sr, genre)
 
 
         #Add to total arrays
         for i in range(27):
             total_features[i][count] = song_features[i]
-            total_harmonic[i][count] = harmonic_features[i]
-            total_percussive[i][count] = percussive_features[i]
+            #total_harmonic[i][count] = harmonic_features[i]
+            #total_percussive[i][count] = percussive_features[i]
             continue
 
 
@@ -111,9 +111,9 @@ for genre in genre_list:
 
 
 
-np.savetxt("C:/Users/Katon/Documents/finalproject/total_features.csv", total_features, delimiter=",")   
-np.savetxt("C:/Users/Katon/Documents/finalproject/harmonic_features.csv", total_harmonic, delimiter=",")
-np.savetxt("C:/Users/Katon/Documents/finalproject/percussive_features.csv", total_percussive, delimiter=",")
+np.savetxt("C:/Users/Katon/Documents/finalproject/feature_files/noisy_features.csv", total_features, delimiter=",")   
+#np.savetxt("C:/Users/Katon/Documents/finalproject/harmonic_features.csv", total_harmonic, delimiter=",")
+#np.savetxt("C:/Users/Katon/Documents/finalproject/percussive_features.csv", total_percussive, delimiter=",")
 
 
 
